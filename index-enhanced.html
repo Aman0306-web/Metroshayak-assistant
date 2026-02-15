@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MetroSahayak - Delhi Metro Assistant</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', 'Segoe UI', Roboto, sans-serif;
+        }
+
+        /* --- DESIGN SYSTEM VARIABLES --- */
+        :root {
+            /* Palette */
+            --primary-red: #D82B33;
+            --primary-red-dark: #B71C1C;
+            --primary-gradient: linear-gradient(135deg, #D82B33 0%, #B71C1C 100%);
+            --metro-blue: #02555B;
+            --text-main: #2C3E50;
+            --text-secondary: #7F8C8D;
+            --bg-body: #F4F7F6;
+            --bg-card: #FFFFFF;
+            
+            /* Shadows (Canva-style soft shadows) */
+            --shadow-sm: 0 4px 6px rgba(0,0,0,0.02);
+            --shadow-md: 0 10px 30px rgba(0,0,0,0.05);
+            --shadow-lg: 0 20px 40px rgba(0,0,0,0.08);
+            --shadow-hover: 0 15px 35px rgba(0,0,0,0.1);
+            
+            /* Radius */
+            --radius-lg: 24px;
+            --radius-md: 16px;
+            --radius-sm: 12px;
+            
+            /* Transitions */
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        body { 
+            background-color: var(--bg-body); 
+            color: var(--text-main); 
+            height: 100vh; 
+            overflow: hidden;
+        }
+
+        /* --- LAYOUT --- */
+        .app-layout { display: flex; height: 100vh; width: 100vw; }
+
+        /* Sidebar Styling */
+        .sidebar {
+            width: 280px;
+            background: var(--bg-card);
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 1px 0 20px rgba(0,0,0,0.02);
+            z-index: 10;
+        }
+
+        .brand { text-align: center; margin-bottom: 40px; }
+        .brand-icon { font-size: 48px; display: block; margin-bottom: 10px; animation: float 3s ease-in-out infinite; }
+        .brand h2 { color: var(--primary-red); font-weight: 800; font-size: 24px; letter-spacing: -0.5px; }
+
+        .menu { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+        .menu-item {
+            padding: 16px 20px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--text-secondary);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 15px;
+        }
+        .menu-item:hover { background: #FFF5F5; color: var(--primary-red); transform: translateX(5px); }
+        .menu-item.active { background: var(--primary-red); color: white; box-shadow: 0 8px 20px rgba(216, 43, 51, 0.3); }
+
+        /* Main Content Area */
+        .content-area {
+            flex: 1;
+            padding: 40px;
+            overflow-y: auto;
+            scroll-behavior: smooth;
+        }
+
+        .view-section { display: none; animation: fadeIn 0.4s ease; }
+        .view-section.active { display: block; }
+
+        /* --- DASHBOARD COMPONENTS --- */
+        
+        /* Greeting Card */
+        .greeting-card {
+            background: var(--primary-gradient);
+            color: white;
+            padding: 40px;
+            border-radius: var(--radius-lg);
+            margin-bottom: 30px;
+            box-shadow: 0 15px 35px rgba(216, 43, 51, 0.25);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .greeting-card h1 { font-size: 32px; font-weight: 700; margin-bottom: 10px; }
+        .greeting-card p { font-size: 18px; opacity: 0.9; margin-bottom: 25px; }
+        .greeting-card button {
+            background: white;
+            color: var(--primary-red);
+            border: none;
+            padding: 14px 28px;
+            border-radius: var(--radius-sm);
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .greeting-card button:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0,0,0,0.15); }
+
+        /* Network Status Card */
+        .network-status-card {
+            background: var(--bg-card);
+            padding: 25px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            margin-bottom: 30px;
+            border-top: 5px solid var(--metro-blue);
+        }
+        .network-status-card h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-main);
+        }
+        .lines-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 15px;
+        }
+        .line-status-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 15px;
+            background: #F8FAFC;
+            border-radius: var(--radius-sm);
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-main);
+            transition: var(--transition);
+            border: 1px solid transparent;
+        }
+        .line-status-item:hover {
+            background: white;
+            border-color: #E2E8F0;
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-sm);
+        }
+        .status-dot { width: 12px; height: 12px; border-radius: 50%; box-shadow: 0 0 0 2px rgba(255,255,255,0.8); }
+
+        /* Quick Actions */
+        .quick-actions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+        }
+        .quick-action-card {
+            background: var(--bg-card);
+            padding: 25px;
+            border-radius: var(--radius-md);
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid #F1F5F9;
+        }
+        .quick-action-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+            border-color: transparent;
+        }
+        .quick-action-icon { font-size: 36px; margin-bottom: 15px; display: block; }
+        .quick-action-text { font-weight: 600; color: var(--text-main); font-size: 15px; }
+
+        /* --- CHAT UI --- */
+        .chat-content { height: 100%; display: flex; flex-direction: column; }
+        .messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .message {
+            max-width: 75%;
+            padding: 16px 20px;
+            border-radius: 20px;
+            font-size: 15px;
+            line-height: 1.5;
+            position: relative;
+            animation: slideUp 0.3s ease;
+        }
+        .message.bot {
+            background: white;
+            color: var(--text-main);
+            border-bottom-left-radius: 4px;
+            box-shadow: var(--shadow-sm);
+        }
+        .message.user {
+            background: var(--primary-red);
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
+            box-shadow: 0 4px 15px rgba(216, 43, 51, 0.2);
+        }
+
+        .input-area {
+            background: white;
+            padding: 20px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .input-area input {
+            flex: 1;
+            border: 2px solid #E2E8F0;
+            padding: 15px 20px;
+            border-radius: var(--radius-sm);
+            font-size: 15px;
+            transition: var(--transition);
+            outline: none;
+        }
+        .input-area input:focus { border-color: var(--primary-red); }
+        .input-area button {
+            background: var(--primary-red);
+            color: white;
+            border: none;
+            padding: 0 30px;
+            border-radius: var(--radius-sm);
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .input-area button:hover { background: var(--primary-red-dark); transform: scale(1.05); }
+
+        /* --- ROUTE FINDER --- */
+        .route-form {
+            background: white;
+            padding: 30px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+        }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; font-weight: 700; margin-bottom: 10px; color: var(--text-main); }
+        .form-group select {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #E2E8F0;
+            border-radius: var(--radius-sm);
+            font-size: 15px;
+            outline: none;
+            transition: var(--transition);
+            background: white;
+        }
+        .form-group select:focus { border-color: var(--metro-blue); }
+        .search-btn {
+            width: 100%;
+            padding: 18px;
+            background: var(--metro-blue);
+            color: white;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .search-btn:hover { background: #013d42; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(2, 85, 91, 0.2); }
+
+        /* --- UTILITIES & ANIMATIONS --- */
+        .loading {
+            display: flex;
+            gap: 8px;
+            padding: 15px 20px;
+            align-self: flex-start;
+            background: #F8FAFC;
+            border-radius: 18px;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+        .loading span {
+            width: 10px;
+            height: 10px;
+            background: var(--metro-blue);
+            border-radius: 50%;
+            animation: bounce 1.4s infinite ease-in-out;
+        }
+        .loading span:nth-child(1) { animation-delay: -0.32s; }
+        .loading span:nth-child(2) { animation-delay: -0.16s; }
+
+        @keyframes bounce { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* Line Colors */
+        .dot-red { background: #DC143C; } .dot-yellow { background: #FFD700; } .dot-blue { background: #4169E1; }
+        .dot-green { background: #228B22; } .dot-violet { background: #8B00FF; } .dot-pink { background: #FF69B4; }
+        .dot-magenta { background: #FF00FF; } .dot-grey { background: #808080; } .dot-orange { background: #FF6347; }
+        
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94A3B8; }
+
+        /* Live Ticker */
+        .live-ticker {
+            background: #FFF3CD; color: #856404; padding: 10px 20px;
+            border-radius: 12px; margin-bottom: 20px; font-size: 14px;
+            display: flex; align-items: center; gap: 10px; border: 1px solid #FFEEBA;
+            animation: fadeIn 0.5s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-layout">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <div class="brand" style="padding-bottom: 30px; text-align: center;">
+                <div style="font-size: 40px; margin-bottom: 10px;">🚇</div>
+                <h2 style="color: #C0282C; font-weight: 800; letter-spacing: -0.5px;">Metro Sahayak</h2>
+            </div>
+            
+            <ul class="menu" style="list-style: none;">
+                <li class="menu-item active" data-view="dashboard">
+                    🏠 Dashboard
+                </li>
+                <li class="menu-item" data-view="assistant">
+                    🤖 AI Assistant
+                </li>
+                <li class="menu-item" data-view="routes">
+                    🗺️ Route Finder
+                </li>
+                <li class="menu-item" data-view="stations">
+                    🚉 Stations
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="content-area">
+            
+            <!-- 1. Dashboard View -->
+            <div id="view-dashboard" class="view-section active">
+                <!-- Live Status Ticker -->
+                <div id="liveTicker" class="live-ticker" style="display: none;"></div>
+
+                <!-- Greeting Card -->
+                <div class="greeting-card">
+                    <h1>Hello, Traveler! 👋</h1>
+                    <p>Where would you like to go today?</p>
+                    <button id="btnStartChatting">Start Chatting</button>
+                </div>
+
+                <!-- Network Status -->
+                <div class="network-status-card">
+                    <h3>
+                        Network Status
+                        <span id="system-status-badge" style="font-size: 11px; background: #e8f5e9; color: #2e7d32; padding: 4px 8px; border-radius: 10px;">Checking Connection...</span>
+                    </h3>
+                    <div class="lines-grid">
+                        <div class="line-status-item"><span class="status-dot dot-red"></span>Red Line</div>
+                        <div class="line-status-item"><span class="status-dot dot-yellow"></span>Yellow Line</div>
+                        <div class="line-status-item"><span class="status-dot dot-blue"></span>Blue Line</div>
+                        <div class="line-status-item"><span class="status-dot dot-green"></span>Green Line</div>
+                        <div class="line-status-item"><span class="status-dot dot-violet"></span>Violet Line</div>
+                        <div class="line-status-item"><span class="status-dot dot-pink"></span>Pink Line</div>
+                        <div class="line-status-item"><span class="status-dot dot-magenta"></span>Magenta Line</div>
+                        <div class="line-status-item"><span class="status-dot dot-grey"></span>Grey Line</div>
+                        <div class="line-status-item"><span class="status-dot dot-orange"></span>Airport Exp</div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <h3 style="margin-bottom: 20px; color: var(--text-main);">Quick Actions</h3>
+                <div class="quick-actions-grid">
+                    <div class="quick-action-card" data-action="view-routes">
+                        <div class="quick-action-icon">📍</div>
+                        <div class="quick-action-text">Find Route</div>
+                    </div>
+                    <div class="quick-action-card" data-action="view-stations">
+                        <div class="quick-action-icon">ℹ️</div>
+                        <div class="quick-action-text">Station Info</div>
+                    </div>
+                    <div class="quick-action-card" data-action="recharge">
+                        <div class="quick-action-icon">💳</div>
+                        <div class="quick-action-text">Recharge</div>
+                    </div>
+                    <div class="quick-action-card" data-action="helpline">
+                        <div class="quick-action-icon">📞</div>
+                        <div class="quick-action-text">Helpline</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. AI Assistant View (Chat) -->
+            <div id="view-assistant" class="view-section">
+                <div class="chat-content" style="height: 85vh; display: flex; flex-direction: column;">
+                    <div class="messages" id="messages" style="flex: 1; margin-bottom: 20px;">
+                        <div class="message bot">
+                            👋 Hello! I'm MetroSahayak. Ask me about routes, fares, or timings.
+                        </div>
+                    </div>
+                    <div class="input-area">
+                        <input type="text" id="chatInput" placeholder="Type your query...">
+                        <button id="btnSendChat">Send</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. Route Finder View -->
+            <div id="view-routes" class="view-section">
+                <div class="route-form">
+                    <h2 style="color: #C0282C; margin-bottom: 20px;">Find Best Route</h2>
+                    <div class="form-group">
+                        <label>📍 From Station</label>
+                        <select id="fromStation"><option value="">Select a station...</option></select>
+                    </div>
+                    <div class="form-group">
+                        <label>🎯 To Station</label>
+                        <select id="toStation"><option value="">Select a station...</option></select>
+                    </div>
+                    <button class="search-btn" id="btnFindRoute">🔍 Search Route</button>
+                </div>
+                <div id="routeResults" style="margin-top: 20px;"></div>
+            </div>
+
+            <!-- 4. Stations View (Placeholder) -->
+            <div id="view-stations" class="view-section">
+                <div style="background: white; padding: 30px; border-radius: 20px; text-align: center;">
+                    <h2>Station Information</h2>
+                    <p style="color: #666; margin-top: 10px;">Search for any station to see facilities, gates, and first/last train timings.</p>
+                    <input type="text" placeholder="Search station..." style="width: 100%; padding: 15px; margin-top: 20px; border: 2px solid #eee; border-radius: 12px;">
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script>
+        // Robust API URL detection
+        let apiHost = window.location.hostname;
+        if (!apiHost || apiHost === '') apiHost = 'localhost';
+        const API_BASE_URL = `http://${apiHost}:8000`;
+
+        // Enhanced chatbot knowledge base
+        const CHATBOT_KNOWLEDGE = {
+            timings: {
+                keywords: ['timing', 'time', 'open', 'close', 'schedule', 'hours'],
+                response: `🕐 Delhi Metro Operating Hours:
+
+Monday to Saturday: 6:00 AM - 11:00 PM
+Sunday: 6:00 AM - 10:00 PM
+
+First Train: Around 5:00 AM - 6:00 AM (varies by line)
+Last Train: Around 10:30 PM - 11:30 PM (varies by line)
+
+Note: Timings may vary on special occasions and public holidays.`
+            },
+            recharge: {
+                keywords: ['recharge', 'topup', 'top-up', 'reload', 'card'],
+                response: `💳 Metro Card Recharge Methods:
+
+1. At Metro Stations:
+   - AFC (Automatic Fare Collection) counters
+   - TVM (Ticket Vending Machines)
+   - Recharge kiosks
+
+2. Online Methods:
+   - Delhi Metro Rail App (DMRC)
+   - Paytm, PhonePe, Google Pay
+   - Official DMRC website
+
+3. Mobile Wallets:
+   - Link your metro card
+   - Auto-recharge options available
+
+Minimum recharge: ₹100
+Maximum balance: ₹3000`
+            },
+            lines: {
+                keywords: ['line', 'lines', 'color', 'route map'],
+                response: `🗺️ Delhi Metro Lines:
+
+🔴 Red Line: Rithala - Shaheed Sthal (New Bus Adda)
+🔵 Blue Line: Dwarka Sector 21 - Noida Electronic City/Vaishali
+🟡 Yellow Line: Samaypur Badli - HUDA City Centre
+🟢 Green Line: Brigadier Hoshiar Singh - Kirti Nagar
+🟣 Violet Line: Kashmere Gate - Raja Nahar Singh (Ballabhgarh)
+🟠 Orange Line: AIIMS - New Delhi (Airport Express)
+🩷 Pink Line: Majlis Park - Shiv Vihar
+🩶 Grey Line: Dwarka - Najafgarh
+⚪ Rapid Metro: Sikanderpur - Cyber City
+
+Total: 350+ stations across 390+ km`
+            },
+            peak: {
+                keywords: ['peak', 'rush', 'busy', 'crowd'],
+                response: `📊 Peak Hours & Off-Peak Timings:
+
+Morning Peak Hours:
+🔺 8:00 AM - 10:00 AM
+
+Evening Peak Hours:
+🔺 5:00 PM - 8:00 PM
+
+Off-Peak Hours:
+✅ 10:00 AM - 5:00 PM
+✅ After 8:00 PM
+
+💡 Tip: Travel during off-peak hours for:
+- Less crowded trains
+- Discounted fares (10% off on smart cards)
+- More comfortable journey`
+            },
+            fare: {
+                keywords: ['fare', 'price', 'cost', 'ticket', 'charge'],
+                response: `💰 Delhi Metro Fare Structure:
+
+Distance-based fares:
+📍 0-2 km: ₹10
+📍 2-5 km: ₹20
+📍 5-12 km: ₹30
+📍 12-21 km: ₹40
+📍 21-32 km: ₹50
+📍 32+ km: ₹60
+
+Airport Express Line:
+✈️ ₹60 (New Delhi to Airport)
+
+Smart Card Benefits:
+💳 10% discount on every journey
+💳 Faster entry/exit
+💳 No need to buy tokens
+
+Senior Citizens & Students: 50% discount on smart cards`
+            },
+            airport: {
+                keywords: ['airport', 'flight', 'terminal', 'igi'],
+                response: `✈️ Delhi Airport Metro Connection:
+
+Orange Line (Airport Express):
+🔸 New Delhi → IGI Airport T3
+🔸 Stations: New Delhi, Shivaji Stadium, Dhaula Kuan, Airport (T3)
+
+Travel Time: ~20 minutes
+Frequency: Every 10-15 minutes
+Fare: ₹60
+
+You can also use:
+- Pink Line to Aerocity
+- Yellow Line to nearest station + cab
+
+💡 Tip: Airport Express is fastest! Luggage space available.`
+            },
+            card_types: {
+                keywords: ['smart card', 'token', 'card type', 'payment'],
+                response: `🎫 Metro Ticket & Card Types:
+
+1. Metro Smart Card:
+   💳 Reusable, rechargeable
+   💳 10% discount on fares
+   💳 Deposit: ₹50 (refundable)
+   💳 Validity: 10 years
+
+2. Tokens:
+   🪙 Single journey
+   🪙 No discount
+   🪙 Available at TVMs
+
+3. QR Code Tickets:
+   📱 Via DMRC app
+   📱 One-time use
+   📱 Contactless
+
+4. National Common Mobility Card (NCMC):
+   🌐 Works on multiple transport systems
+   🌐 Available soon
+
+💡 Recommendation: Smart Card for regular travelers`
+            },
+            lost_found: {
+                keywords: ['lost', 'found', 'missing', 'forgot'],
+                response: `📦 Lost & Found:
+
+Main Office:
+📍 Kashmere Gate Metro Station
+📞 011-23417910
+⏰ 8:00 AM - 8:00 PM (Mon-Sat)
+
+Online Complaint:
+🌐 www.delhimetrorail.com
+📧 Report through DMRC app
+
+What to do:
+1. Report to station manager immediately
+2. File written complaint
+3. Provide item description & journey details
+4. Keep contact info updated
+
+💡 Unclaimed items are kept for 3 months`
+            },
+            wifi: {
+                keywords: ['wifi', 'internet', 'connectivity', 'data'],
+                response: `📶 Delhi Metro WiFi:
+
+Free WiFi Available at:
+✅ All underground stations
+✅ Major interchange stations
+
+How to Connect:
+1. Search for "DelhiMetro-Wifi"
+2. Accept terms & conditions
+3. Enter mobile number
+4. Receive OTP & login
+
+Speed: Good for browsing
+Duration: Continuous during journey
+
+💡 Tip: Download content before boarding for uninterrupted entertainment!`
+            },
+            parking: {
+                keywords: ['parking', 'park', 'vehicle', 'car'],
+                response: `🅿️ Metro Station Parking:
+
+Available at major stations:
+- Noida Sector 16
+- Dwarka Sector 21
+- Kashmere Gate
+- Rajiv Chowk
+- Many more...
+
+Charges (approx):
+🚗 Cars: ₹40 for first 4 hours
+🏍️ Two-wheelers: ₹20 for first 4 hours
+
+Facilities:
+✅ Secure parking
+✅ CCTV surveillance
+✅ Pay & Park facilities
+
+💡 Tip: Use Park & Ride to avoid city traffic!`
+            },
+            facilities: {
+                keywords: ['facilities', 'amenities', 'washroom', 'atm'],
+                response: `🏢 Metro Station Facilities:
+
+Available at Most Stations:
+✅ Clean Washrooms (paid)
+✅ ATMs
+✅ Drinking Water
+✅ First Aid
+✅ Elevators & Escalators
+✅ Help Desks
+
+Special Facilities:
+♿ Wheelchair assistance
+👶 Baby care rooms (select stations)
+🛒 Retail shops
+☕ Cafes (major stations)
+📱 Mobile charging points
+
+💡 Staff available 24/7 for assistance!`
+            },
+            rules: {
+                keywords: ['rule', 'rules', 'allowed', 'prohibited', 'banned'],
+                response: `⚠️ Metro Rules & Regulations:
+
+❌ PROHIBITED:
+- Smoking, eating, drinking
+- Carrying flammable items
+- Pets (except guide dogs)
+- Playing music without earphones
+- Spitting, littering
+- Photography/Videography without permission
+
+✅ ALLOWED:
+- 2 pieces of luggage (max 25kg each)
+- Laptops, electronics
+- Folded bicycles (in designated coaches)
+- Musical instruments (properly covered)
+
+⚖️ Penalties:
+Fine up to ₹500 for violations
+
+💡 Follow rules for everyone's safety!`
+            }
+        };
+
+        // Load stations on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            loadStations();
+            updateNetworkStatus();
+            setInterval(updateNetworkStatus, 60000); // Refresh every minute
+            
+            // Event Listeners
+            setupEventListeners();
+        });
+
+        function setupEventListeners() {
+            // Sidebar Navigation
+            document.querySelectorAll('.menu-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    const viewId = item.getAttribute('data-view');
+                    switchView(viewId);
+                });
+            });
+
+            // Quick Actions
+            document.querySelectorAll('.quick-action-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    const action = card.getAttribute('data-action');
+                    if (action === 'view-routes') switchView('routes');
+                    else if (action === 'view-stations') switchView('stations');
+                    else handleQuickAction(action);
+                });
+            });
+
+            // Buttons
+            document.getElementById('btnStartChatting').addEventListener('click', startChatting);
+            document.getElementById('btnSendChat').addEventListener('click', sendMessage);
+            document.getElementById('btnFindRoute').addEventListener('click', findRoute);
+
+            // Inputs
+            document.getElementById('chatInput').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') sendMessage();
+            });
+        }
+
+        // Global Error Handler
+        window.addEventListener('unhandledrejection', function(event) {
+            console.warn('Unhandled promise rejection:', event.reason);
+            // Prevent default console error if desired
+            // event.preventDefault();
+        });
+
+        window.addEventListener('error', function(event) {
+            console.warn('Global error caught:', event.message);
+            // Prevent default console error if desired
+            // event.preventDefault();
+        });
+
+        function switchView(viewId) {
+            // 1. Hide all view sections
+            document.querySelectorAll('.view-section').forEach(el => {
+                el.classList.remove('active');
+            });
+            
+            // 2. Show the selected view
+            const target = document.getElementById('view-' + viewId);
+            if (target) target.classList.add('active');
+
+            // 3. Update sidebar active state
+            document.querySelectorAll('.menu-item').forEach(item => item.classList.remove('active'));
+            const activeItem = document.querySelector(`.menu-item[data-view="${viewId}"]`);
+            if (activeItem) activeItem.classList.add('active');
+        }
+
+        function startChatting() {
+            switchView('assistant');
+            setTimeout(() => {
+                const input = document.getElementById('chatInput');
+                if (input) input.focus();
+            }, 300);
+        }
+
+        function handleQuickAction(action) {
+            if (action === 'recharge') {
+                alert("💳 Recharge Feature:\n\nPlease use the DMRC App or visit a station counter to recharge your smart card.");
+            } else if (action === 'helpline') {
+                alert("📞 DMRC Helpline: 155370\n\nAvailable 24/7 for assistance.");
+            } else {
+                console.log('Unknown action:', action);
+            }
+        }
+
+        async function loadStations() {
+            const fallbackStations = [
+                "Rajiv Chowk", "Kashmere Gate", "New Delhi", "Chandni Chowk", 
+                "Hauz Khas", "Central Secretariat", "Noida City Centre", 
+                "Dwarka Sector 21", "Botanical Garden", "Lajpat Nagar",
+                "Yamuna Bank", "Vaishali", "Huda City Centre", "Samaypur Badli",
+                "Mandi House", "Karol Bagh", "Saket", "MG Road", "Cyber City"
+            ].sort();
+
+            const fromSelect = document.getElementById('fromStation');
+            const toSelect = document.getElementById('toStation');
+
+            const populate = (list) => {
+                fromSelect.innerHTML = '<option value="">Select From Station...</option>';
+                toSelect.innerHTML = '<option value="">Select To Station...</option>';
+                list.forEach(s => {
+                    fromSelect.add(new Option(s, s));
+                    toSelect.add(new Option(s, s));
+                });
+            };
+
+            try {
+                // Fetch all stations from the dedicated /api/stations endpoint
+                const response = await fetch(`${API_BASE_URL}/api/stations`);
+                if (!response.ok) {
+                    throw new Error('Backend offline');
+                }
+                const data = await response.json();
+                if (data.stations && data.stations.length > 0) {
+                    populate(data.stations);
+                    console.log(`Loaded ${data.stations.length} stations successfully`);
+                } else { 
+                    throw new Error('No stations data');
+                }
+            } catch (error) {
+                console.warn('Using fallback stations list');
+                populate(fallbackStations);
+    }
+}
+
+        async function updateNetworkStatus() {
+            const statusBadge = document.getElementById('system-status-badge');
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/live-status`);
+                if (response.ok) {
+                    const data = await response.json();
+                    
+                    // 1. Update Ticker
+                    const ticker = document.getElementById('liveTicker');
+                    if (ticker) {
+                        if (data.alerts && data.alerts.length > 0) {
+                            ticker.style.display = 'flex';
+                            ticker.innerHTML = `<span>📢 <strong>LIVE UPDATE:</strong> ${data.alerts[0]}</span>`;
+                        } else {
+                            ticker.style.display = 'none';
+                        }
+                    }
+
+                    if (statusBadge) {
+                        statusBadge.textContent = "System Online";
+                        statusBadge.style.background = "#e8f5e9";
+                        statusBadge.style.color = "#2e7d32";
+                    }
+
+                    // 2. Update Line Statuses
+                    const lineItems = document.querySelectorAll('.line-status-item');
+                    lineItems.forEach(item => {
+                        const lineName = item.textContent.trim();
+                        let status = "Operational";
+                        let delay = 0;
+
+                        // Match with backend data
+                        if (data.line_statuses) {
+                            const info = data.line_statuses.find(s => 
+                                s.line === lineName || 
+                                (lineName === 'Airport Exp' && s.line === 'Airport Express')
+                            );
+                            if (info) {
+                                status = info.status;
+                                delay = info.delay;
+                            }
+                        }
+
+                        // Set Tooltip & Visuals
+                        item.title = `Status: ${status}${delay > 0 ? ` (${delay} min delay)` : ''}`;
+                        if (status !== 'Normal' && status !== 'Operational') {
+                            item.style.borderLeft = '3px solid #ff9800';
+                            item.style.backgroundColor = '#fff3e0';
+                        }
+                    });
+                }
+            } catch (e) {
+                console.log("Network status check failed (Backend offline)");
+                if (statusBadge) {
+                    statusBadge.textContent = "Backend Offline (Demo Mode)";
+                    statusBadge.style.background = "#fff3e0";
+                    statusBadge.style.color = "#ef6c00";
+                }
+            }
+        }
+
+        function sendQuickMessage(message) {
+            document.getElementById('chatInput').value = message;
+            sendMessage();
+        }
+
+        async function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            
+            if (!message) return;
+
+            // Add user message
+            addMessage(message, 'user');
+            input.value = '';
+
+            // Show loading
+            const messagesDiv = document.getElementById('messages');
+            const loadingDiv = document.createElement('div');
+            loadingDiv.className = 'loading';
+            loadingDiv.innerHTML = '<span></span><span></span><span></span>';
+            loadingDiv.id = 'loading';
+            messagesDiv.appendChild(loadingDiv);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+
+            try {
+                // Try Backend API first (Primary)
+                const response = await fetch(`${API_BASE_URL}/chat`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: message, language: 'en' })
+                });
+
+                if (!response.ok) throw new Error('Backend offline');
+
+                const data = await response.json();
+                const loading = document.getElementById('loading');
+                if (loading) loading.remove();
+                
+                addMessage(data.response, 'bot');
+                if (data.sources) renderSources(data.sources);
+
+            } catch (error) {
+                const loading = document.getElementById('loading');
+                if (loading) loading.remove();
+
+                // Fallback to local knowledge if backend fails
+                const localResponse = getLocalResponse(message);
+                if (localResponse) {
+                    addMessage(localResponse, 'bot');
+                } else {
+                    addMessage("⚠️ Backend is offline. I can only answer basic questions.", 'bot');
+                }
+            }
+        }
+
+        function getLocalResponse(message) {
+            const lowerMessage = message.toLowerCase();
+            
+            for (const [key, data] of Object.entries(CHATBOT_KNOWLEDGE)) {
+                if (data.keywords.some(keyword => lowerMessage.includes(keyword))) {
+                    return data.response;
+                }
+            }
+            
+            return null;
+        }
+
+        function addMessage(text, sender) {
+            const messagesDiv = document.getElementById('messages');
+            const messageEl = document.createElement('div');
+            messageEl.className = `message ${sender}`;
+            messageEl.innerHTML = text.replace(/\n/g, '<br>');
+            messagesDiv.appendChild(messageEl);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        function renderSources(sources) {
+            try {
+                const messagesDiv = document.getElementById('messages');
+                const container = document.createElement('div');
+                container.style.fontSize = '13px';
+                container.style.color = '#333';
+                container.style.margin = '8px 0 18px 0';
+                container.style.alignSelf = 'flex-start';
+
+                const title = document.createElement('div');
+                title.style.fontWeight = '700';
+                title.style.marginBottom = '6px';
+                title.textContent = 'Sources:';
+                container.appendChild(title);
+
+                sources.forEach(src => {
+                    const item = document.createElement('div');
+                    item.style.marginBottom = '6px';
+
+                    const a = document.createElement('a');
+                    a.href = src.link || '#';
+                    a.target = '_blank';
+                    a.rel = 'noopener noreferrer';
+                    a.style.color = '#02555B';
+                    a.style.fontWeight = '600';
+                    a.textContent = src.title || (src.link || src.site || 'source');
+
+                    const snippet = document.createElement('div');
+                    snippet.style.color = '#555';
+                    snippet.style.fontSize = '12px';
+                    snippet.textContent = src.snippet || '';
+
+                    item.appendChild(a);
+                    if (src.snippet) item.appendChild(snippet);
+                    container.appendChild(item);
+                });
+
+                messagesDiv.appendChild(container);
+                messagesDiv.scrollTop = messagesDiv.scrollHeight;
+            } catch (e) {
+                console.warn('Failed to render sources', e);
+            }
+        }
+
+        async function findRoute() {
+            const from = document.getElementById('fromStation').value;
+            const to = document.getElementById('toStation').value;
+            const resultsDiv = document.getElementById('routeResults');
+
+            if (!from || !to) {
+                resultsDiv.innerHTML = '<div class="message bot">❌ Please select both starting and destination stations</div>';
+                return;
+            }
+
+            if (from === to) {
+                resultsDiv.innerHTML = '<div class="message bot">❌ Starting and destination stations must be different</div>';
+                return;
+            }
+
+            resultsDiv.innerHTML = '<div class="loading"><span></span><span></span><span></span></div>';
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/route`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ from_station: from, to_station: to, language: 'en' })
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    resultsDiv.innerHTML = `<div class="message bot">❌ ${data.detail || 'Failed to find route'}</div>`;
+                    return;
+                }
+
+                displayRoute(data, resultsDiv);
+            } catch (error) {
+                // Fallback Simulation for Demo/Offline mode
+                setTimeout(() => {
+                    const dummyRoute = {
+                        from_station: from,
+                        to_station: to,
+                        total_stations: 8,
+                        stations: [from, "Station A", "Station B", "Interchange Stn", "Station C", "Station D", to],
+                        interchanges: [
+                            { station: "Interchange Stn", lines: ["Yellow Line", "Blue Line"] }
+                        ],
+                        fare: {
+                            base_fare: 30,
+                            off_peak_fare: 27,
+                            smart_card_fare: 27
+                        }
+                    };
+                    displayRoute(dummyRoute, resultsDiv);
+                }, 1000);
+            }
+        }
+
+        function displayRoute(route, container) {
+            // Handle property difference between backend (total_stations) and frontend expectation
+            const dist = route.total_stations || route.distance || route.stations.length;
+            let html = `
+                <div class="route-display">
+                    <h3>✅ Route Found!</h3>
+                    <div class="route-info">
+                        <p><strong>From:</strong> <span>${route.from_station}</span></p>
+                        <p><strong>To:</strong> <span>${route.to_station}</span></p>
+                        <p><strong>Distance:</strong> <span>${dist} stations</span></p>
+                    </div>
+
+                    <div class="stations-list">
+                        <h4>Journey Path</h4>
+                        ${route.stations.map((s, i) => `
+                            <div class="station-item">
+                                <span class="station-number">${i + 1}</span>
+                                <span class="station-name">${s}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+
+                    ${route.interchanges.length > 0 ? `
+                        <div class="stations-list">
+                            <h4>🔄 Interchange Stations</h4>
+                            ${route.interchanges.map(i => `
+                                <div class="station-item">
+                                    <strong>${i.station}</strong>
+                                    <span style="font-size: 12px; color: #666; margin-left: auto;">${(i.lines || []).join(' ↔ ')}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                    ` : ''}
+
+                    <div class="fare-info">
+                        <h4>💰 Fare Details</h4>
+                        <p><span>Token Fare:</span> <span class="fare-amount">₹${route.fare.base_fare}</span></p>
+                        <p><span>Off-Peak Fare:</span> <span class="fare-amount">₹${route.fare.off_peak_fare}</span></p>
+                        <p><span>Smart Card:</span> <span class="fare-amount">₹${route.fare.smart_card_fare}</span></p>
+                    </div>
+                </div>
+            `;
+            container.innerHTML = html;
+        }
+    </script>
+</body>
+</html>

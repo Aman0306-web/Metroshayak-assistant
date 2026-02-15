@@ -1,0 +1,257 @@
+station_name,lines,code,neighbors,interchange,interchange_lines
+Shaheed Sthal,Red Line,RD01,Hindon River,No,
+Hindon River,Red Line,RD02,"Shaheed Sthal,Arthala",No,
+Arthala,Red Line,RD03,"Hindon River,Mohan Nagar",No,
+Mohan Nagar,Red Line,RD04,"Arthala,Shyam Park",No,
+Shyam Park,Red Line,RD05,"Mohan Nagar,Major Mohit Sharma Rajendra Nagar",No,
+Major Mohit Sharma Rajendra Nagar,Red Line,RD06,"Shyam Park,Raj Bagh",No,
+Raj Bagh,Red Line,RD07,"Major Mohit Sharma Rajendra Nagar,Shaheed Nagar",No,
+Shaheed Nagar,Red Line,RD08,"Raj Bagh,Dilshad Garden",No,
+Dilshad Garden,Red Line,RD09,"Shaheed Nagar,Jhilmil",No,
+Jhilmil,Red Line,RD10,"Dilshad Garden,Mansarovar Park",No,
+Mansarovar Park,Red Line,RD11,"Jhilmil,Shahdara",No,
+Shahdara,Red Line,RD12,"Mansarovar Park,Welcome",No,
+Welcome,"Red Line,Pink Line",RD13,"Shahdara,Seelampur",Yes,Pink Line
+Seelampur,Red Line,RD14,"Welcome,Shastri Park",No,
+Shastri Park,Red Line,RD15,"Seelampur,Kashmere Gate",No,
+Kashmere Gate,"Red Line,Yellow Line,Violet Line",RD16,"Shastri Park,Tis Hazari",Yes,"Yellow Line,Violet Line"
+Tis Hazari,Red Line,RD17,"Kashmere Gate,Pul Bangash",No,
+Pul Bangash,Red Line,RD18,"Tis Hazari,Pratap Nagar",No,
+Pratap Nagar,Red Line,RD19,"Pul Bangash,Shastri Nagar",No,
+Shastri Nagar,Red Line,RD20,"Pratap Nagar,Inderlok",No,
+Inderlok,"Red Line,Green Line",RD21,"Shastri Nagar,Kanhaiya Nagar",Yes,Green Line
+Kanhaiya Nagar,Red Line,RD22,"Inderlok,Keshav Puram",No,
+Keshav Puram,Red Line,RD23,"Kanhaiya Nagar,Netaji Subhash Place",No,
+Netaji Subhash Place,"Red Line,Pink Line",RD24,"Keshav Puram,Kohat Enclave",Yes,Pink Line
+Kohat Enclave,Red Line,RD25,"Netaji Subhash Place,Pitampura",No,
+Pitampura,Red Line,RD26,"Kohat Enclave,Rohini East",No,
+Rohini East,Red Line,RD27,"Pitampura,Rohini West",No,
+Rohini West,Red Line,RD28,"Rohini East,Rithala",No,
+Rithala,Red Line,RD29,Rohini West,No,
+Samaypur Badli,Yellow Line,YL01,Rohini Sector 18-19,No,
+Rohini Sector 18-19,Yellow Line,YL02,"Samaypur Badli,Haiderpur Badli Mor",No,
+Haiderpur Badli Mor,Yellow Line,YL03,"Rohini Sector 18-19,Jahangirpuri",No,
+Jahangirpuri,Yellow Line,YL04,"Haiderpur Badli Mor,Adarsh Nagar",No,
+Adarsh Nagar,Yellow Line,YL05,"Jahangirpuri,Azadpur",No,
+Azadpur,"Yellow Line,Pink Line",YL06,"Adarsh Nagar,Model Town",Yes,Pink Line
+Model Town,Yellow Line,YL07,"Azadpur,GTB Nagar",No,
+GTB Nagar,Yellow Line,YL08,"Model Town,Vishwa Vidyalaya",No,
+Vishwa Vidyalaya,Yellow Line,YL09,"GTB Nagar,Vidhan Sabha",No,
+Vidhan Sabha,Yellow Line,YL10,"Vishwa Vidyalaya,Civil Lines",No,
+Civil Lines,Yellow Line,YL11,"Vidhan Sabha,Kashmere Gate",No,
+Kashmere Gate,"Yellow Line,Red Line,Violet Line",YL12,"Civil Lines,Chandni Chowk",Yes,"Red Line,Violet Line"
+Chandni Chowk,Yellow Line,YL13,"Kashmere Gate,Chawri Bazar",No,
+Chawri Bazar,Yellow Line,YL14,"Chandni Chowk,New Delhi",No,
+New Delhi,"Yellow Line,Airport Express",YL15,"Chawri Bazar,Rajiv Chowk",Yes,Airport Express
+Rajiv Chowk,"Yellow Line,Blue Line",YL16,"New Delhi,Patel Chowk",Yes,Blue Line
+Patel Chowk,Yellow Line,YL17,"Rajiv Chowk,Central Secretariat",No,
+Central Secretariat,"Yellow Line,Violet Line",YL18,"Patel Chowk,Udyog Bhawan",Yes,Violet Line
+Udyog Bhawan,Yellow Line,YL19,"Central Secretariat,Lok Kalyan Marg",No,
+Lok Kalyan Marg,Yellow Line,YL20,"Udyog Bhawan,Jor Bagh",No,
+Jor Bagh,Yellow Line,YL21,"Lok Kalyan Marg,Dilli Haat INA",No,
+Dilli Haat INA,"Yellow Line,Pink Line",YL22,"Jor Bagh,AIIMS",Yes,Pink Line
+AIIMS,Yellow Line,YL23,"Dilli Haat INA,Green Park",No,
+Green Park,Yellow Line,YL24,"AIIMS,Hauz Khas",No,
+Hauz Khas,"Yellow Line,Magenta Line",YL25,"Green Park,Malviya Nagar",Yes,Magenta Line
+Malviya Nagar,Yellow Line,YL26,"Hauz Khas,Saket",No,
+Saket,Yellow Line,YL27,"Malviya Nagar,Qutab Minar",No,
+Qutab Minar,Yellow Line,YL28,"Saket,Chhatarpur",No,
+Chhatarpur,Yellow Line,YL29,"Qutab Minar,Sultanpur",No,
+Sultanpur,Yellow Line,YL30,"Chhatarpur,Ghitorni",No,
+Ghitorni,Yellow Line,YL31,"Sultanpur,Arjan Garh",No,
+Arjan Garh,Yellow Line,YL32,"Ghitorni,Guru Dronacharya",No,
+Guru Dronacharya,Yellow Line,YL33,"Arjan Garh,Sikanderpur",No,
+Sikanderpur,Yellow Line,YL34,"Guru Dronacharya,MG Road",No,
+MG Road,Yellow Line,YL35,"Sikanderpur,IFFCO Chowk",No,
+IFFCO Chowk,Yellow Line,YL36,"MG Road,Millennium City Centre Gurugram",No,
+Millennium City Centre Gurugram,Yellow Line,YL37,IFFCO Chowk,No,
+Dwarka Sector 21,"Blue Line,Airport Express",BL01,Dwarka Sector 8,Yes,Airport Express
+Dwarka Sector 8,Blue Line,BL02,"Dwarka Sector 21,Dwarka Sector 9",No,
+Dwarka Sector 9,Blue Line,BL03,"Dwarka Sector 8,Dwarka Sector 10",No,
+Dwarka Sector 10,Blue Line,BL04,"Dwarka Sector 9,Dwarka Sector 11",No,
+Dwarka Sector 11,Blue Line,BL05,"Dwarka Sector 10,Dwarka Sector 12",No,
+Dwarka Sector 12,Blue Line,BL06,"Dwarka Sector 11,Dwarka Sector 13",No,
+Dwarka Sector 13,Blue Line,BL07,"Dwarka Sector 12,Dwarka Sector 14",No,
+Dwarka Sector 14,Blue Line,BL08,"Dwarka Sector 13,Dwarka",No,
+Dwarka,"Blue Line,Grey Line",BL09,"Dwarka Sector 14,Dwarka Mor",Yes,Grey Line
+Dwarka Mor,Blue Line,BL10,"Dwarka,Nawada",No,
+Nawada,Blue Line,BL11,"Dwarka Mor,Uttam Nagar West",No,
+Uttam Nagar West,Blue Line,BL12,"Nawada,Uttam Nagar East",No,
+Uttam Nagar East,Blue Line,BL13,"Uttam Nagar West,Janakpuri West",No,
+Janakpuri West,"Blue Line,Magenta Line",BL14,"Uttam Nagar East,Janakpuri East",Yes,Magenta Line
+Janakpuri East,Blue Line,BL15,"Janakpuri West,Tilak Nagar",No,
+Tilak Nagar,Blue Line,BL16,"Janakpuri East,Subhash Nagar",No,
+Subhash Nagar,Blue Line,BL17,"Tilak Nagar,Tagore Garden",No,
+Tagore Garden,Blue Line,BL18,"Subhash Nagar,Rajouri Garden",No,
+Rajouri Garden,"Blue Line,Pink Line",BL19,"Tagore Garden,Ramesh Nagar",Yes,Pink Line
+Ramesh Nagar,Blue Line,BL20,"Rajouri Garden,Moti Nagar",No,
+Moti Nagar,Blue Line,BL21,"Ramesh Nagar,Kirti Nagar",No,
+Kirti Nagar,"Blue Line,Green Line Branch",BL22,"Moti Nagar,Shadipur",Yes,Green Line Branch
+Shadipur,Blue Line,BL23,"Kirti Nagar,Patel Nagar",No,
+Patel Nagar,Blue Line,BL24,"Shadipur,Rajendra Place",No,
+Rajendra Place,Blue Line,BL25,"Patel Nagar,Karol Bagh",No,
+Karol Bagh,Blue Line,BL26,"Rajendra Place,Jhandewalan",No,
+Jhandewalan,Blue Line,BL27,"Karol Bagh,Ramakrishna Ashram Marg",No,
+Ramakrishna Ashram Marg,Blue Line,BL28,"Jhandewalan,Rajiv Chowk",No,
+Rajiv Chowk,"Blue Line,Yellow Line",BL29,"Ramakrishna Ashram Marg,Barakhamba Road",Yes,Yellow Line
+Barakhamba Road,Blue Line,BL30,"Rajiv Chowk,Mandi House",No,
+Mandi House,"Blue Line,Violet Line",BL31,"Barakhamba Road,Supreme Court",Yes,Violet Line
+Supreme Court,Blue Line,BL32,"Mandi House,Indraprastha",No,
+Indraprastha,Blue Line,BL33,"Supreme Court,Yamuna Bank",No,
+Yamuna Bank,"Blue Line,Blue Line Branch",BL34,"Indraprastha,Akshardham",Yes,Blue Line Branch
+Akshardham,Blue Line,BL35,"Yamuna Bank,Mayur Vihar Phase-1",No,
+Mayur Vihar Phase-1,"Blue Line,Pink Line",BL36,"Akshardham,Mayur Vihar Extension",Yes,Pink Line
+Mayur Vihar Extension,Blue Line,BL37,"Mayur Vihar Phase-1,New Ashok Nagar",No,
+New Ashok Nagar,Blue Line,BL38,"Mayur Vihar Extension,Noida Sector 15",No,
+Noida Sector 15,Blue Line,BL39,"New Ashok Nagar,Noida Sector 16",No,
+Noida Sector 16,Blue Line,BL40,"Noida Sector 15,Noida Sector 18",No,
+Noida Sector 18,Blue Line,BL41,"Noida Sector 16,Botanical Garden",No,
+Botanical Garden,"Blue Line,Magenta Line",BL42,"Noida Sector 18,Golf Course",Yes,Magenta Line
+Golf Course,Blue Line,BL43,"Botanical Garden,Noida City Centre",No,
+Noida City Centre,Blue Line,BL44,"Golf Course,Noida Sector 34",No,
+Noida Sector 34,Blue Line,BL45,"Noida City Centre,Noida Sector 52",No,
+Noida Sector 52,Blue Line,BL46,"Noida Sector 34,Noida Sector 61",No,
+Noida Sector 61,Blue Line,BL47,"Noida Sector 52,Noida Sector 59",No,
+Noida Sector 59,Blue Line,BL48,"Noida Sector 61,Noida Sector 62",No,
+Noida Sector 62,Blue Line,BL49,"Noida Sector 59,Noida Electronic City",No,
+Noida Electronic City,Blue Line,BL50,Noida Sector 62,No,
+Yamuna Bank,"Blue Line Branch,Blue Line",BLB01,Laxmi Nagar,Yes,Blue Line
+Laxmi Nagar,Blue Line Branch,BLB02,"Yamuna Bank,Nirman Vihar",No,
+Nirman Vihar,Blue Line Branch,BLB03,"Laxmi Nagar,Preet Vihar",No,
+Preet Vihar,Blue Line Branch,BLB04,"Nirman Vihar,Karkarduma",No,
+Karkarduma,"Blue Line Branch,Pink Line",BLB05,"Preet Vihar,Anand Vihar ISBT",Yes,Pink Line
+Anand Vihar ISBT,"Blue Line Branch,Pink Line",BLB06,"Karkarduma,Kaushambi",Yes,Pink Line
+Kaushambi,Blue Line Branch,BLB07,"Anand Vihar ISBT,Vaishali",No,
+Vaishali,Blue Line Branch,BLB08,Kaushambi,No,
+Inderlok,"Green Line,Red Line",GR01,Ashok Park Main,Yes,Red Line
+Ashok Park Main,"Green Line,Green Line Branch",GR02,"Inderlok,Punjabi Bagh",Yes,Green Line Branch
+Punjabi Bagh,Green Line,GR03,"Ashok Park Main,Shivaji Park",No,
+Shivaji Park,Green Line,GR04,"Punjabi Bagh,Madipur",No,
+Madipur,Green Line,GR05,"Shivaji Park,Paschim Vihar East",No,
+Paschim Vihar East,Green Line,GR06,"Madipur,Paschim Vihar West",No,
+Paschim Vihar West,Green Line,GR07,"Paschim Vihar East,Peeragarhi",No,
+Peeragarhi,Green Line,GR08,"Paschim Vihar West,Udyog Nagar",No,
+Udyog Nagar,Green Line,GR09,"Peeragarhi,Maharaja Surajmal Stadium",No,
+Maharaja Surajmal Stadium,Green Line,GR10,"Udyog Nagar,Nangloi",No,
+Nangloi,Green Line,GR11,"Maharaja Surajmal Stadium,Nangloi Railway Station",No,
+Nangloi Railway Station,Green Line,GR12,"Nangloi,Rajdhani Park",No,
+Rajdhani Park,Green Line,GR13,"Nangloi Railway Station,Mundka",No,
+Mundka,Green Line,GR14,"Rajdhani Park,Mundka Industrial Area",No,
+Mundka Industrial Area,Green Line,GR15,"Mundka,Ghevra Metro Station",No,
+Ghevra Metro Station,Green Line,GR16,"Mundka Industrial Area,Tikri Kalan",No,
+Tikri Kalan,Green Line,GR17,"Ghevra Metro Station,Tikri Border",No,
+Tikri Border,Green Line,GR18,"Tikri Kalan,Pandit Shree Ram Sharma",No,
+Pandit Shree Ram Sharma,Green Line,GR19,"Tikri Border,Bahadurgarh City",No,
+Bahadurgarh City,Green Line,GR20,"Pandit Shree Ram Sharma,Brigadier Hoshiar Singh",No,
+Brigadier Hoshiar Singh,Green Line,GR21,Bahadurgarh City,No,
+Kirti Nagar,"Green Line Branch,Blue Line",GRB01,Satguru Ram Singh Marg,Yes,Blue Line
+Satguru Ram Singh Marg,Green Line Branch,GRB02,"Kirti Nagar,Ashok Park Main",No,
+Ashok Park Main,"Green Line Branch,Green Line",GRB03,Satguru Ram Singh Marg,Yes,Green Line
+Kashmere Gate,"Violet Line,Yellow Line,Red Line",VT01,Lal Quila,Yes,"Yellow Line,Red Line"
+Lal Quila,Violet Line,VT02,"Kashmere Gate,Jama Masjid",No,
+Jama Masjid,Violet Line,VT03,"Lal Quila,Delhi Gate",No,
+Delhi Gate,Violet Line,VT04,"Jama Masjid,ITO",No,
+ITO,Violet Line,VT05,"Delhi Gate,Mandi House",No,
+Mandi House,"Violet Line,Blue Line",VT06,"ITO,Janpath",Yes,Blue Line
+Janpath,Violet Line,VT07,"Mandi House,Central Secretariat",No,
+Central Secretariat,"Violet Line,Yellow Line",VT08,"Janpath,Khan Market",Yes,Yellow Line
+Khan Market,Violet Line,VT09,"Central Secretariat,Jawaharlal Nehru Stadium",No,
+Jawaharlal Nehru Stadium,Violet Line,VT10,"Khan Market,Jangpura",No,
+Jangpura,Violet Line,VT11,"Jawaharlal Nehru Stadium,Lajpat Nagar",No,
+Lajpat Nagar,"Violet Line,Pink Line",VT12,"Jangpura,Moolchand",Yes,Pink Line
+Moolchand,Violet Line,VT13,"Lajpat Nagar,Kailash Colony",No,
+Kailash Colony,Violet Line,VT14,"Moolchand,Nehru Place",No,
+Nehru Place,Violet Line,VT15,"Kailash Colony,Kalkaji Mandir",No,
+Kalkaji Mandir,"Violet Line,Magenta Line",VT16,"Nehru Place,Govind Puri",Yes,Magenta Line
+Govind Puri,Violet Line,VT17,"Kalkaji Mandir,Harkesh Nagar Okhla",No,
+Harkesh Nagar Okhla,Violet Line,VT18,"Govind Puri,Jasola Apollo",No,
+Jasola Apollo,Violet Line,VT19,"Harkesh Nagar Okhla,Sarita Vihar",No,
+Sarita Vihar,Violet Line,VT20,"Jasola Apollo,Mohan Estate",No,
+Mohan Estate,Violet Line,VT21,"Sarita Vihar,Tughlakabad Station",No,
+Tughlakabad Station,Violet Line,VT22,"Mohan Estate,Badarpur Border",No,
+Badarpur Border,Violet Line,VT23,"Tughlakabad Station,Sarai",No,
+Sarai,Violet Line,VT24,"Badarpur Border,NHPC Chowk",No,
+NHPC Chowk,Violet Line,VT25,"Sarai,Mewala Maharajpur",No,
+Mewala Maharajpur,Violet Line,VT26,"NHPC Chowk,Sector 28 Faridabad",No,
+Sector 28 Faridabad,Violet Line,VT27,"Mewala Maharajpur,Badkal Mor",No,
+Badkal Mor,Violet Line,VT28,"Sector 28 Faridabad,Old Faridabad",No,
+Old Faridabad,Violet Line,VT29,"Badkal Mor,Neelam Chowk Ajronda",No,
+Neelam Chowk Ajronda,Violet Line,VT30,"Old Faridabad,Bata Chowk",No,
+Bata Chowk,Violet Line,VT31,"Neelam Chowk Ajronda,Escorts Mujesar",No,
+Escorts Mujesar,Violet Line,VT32,"Bata Chowk,Sant Surdas (Sihi)",No,
+Sant Surdas (Sihi),Violet Line,VT33,"Escorts Mujesar,Raja Nahar Singh",No,
+Raja Nahar Singh,Violet Line,VT34,Sant Surdas (Sihi),No,
+Majlis Park,Pink Line,PK01,Azadpur,No,
+Azadpur,"Pink Line,Yellow Line",PK02,"Majlis Park,Shalimar Bagh",Yes,Yellow Line
+Shalimar Bagh,Pink Line,PK03,"Azadpur,Netaji Subhash Place",No,
+Netaji Subhash Place,"Pink Line,Red Line",PK04,"Shalimar Bagh,Shakurpur",Yes,Red Line
+Shakurpur,Pink Line,PK05,"Netaji Subhash Place,Punjabi Bagh West",No,
+Punjabi Bagh West,Pink Line,PK06,"Shakurpur,ESI - Basaidarapur",No,
+ESI - Basaidarapur,Pink Line,PK07,"Punjabi Bagh West,Rajouri Garden",No,
+Rajouri Garden,"Pink Line,Blue Line",PK08,"ESI - Basaidarapur,Mayapuri",Yes,Blue Line
+Mayapuri,Pink Line,PK09,"Rajouri Garden,Naraina Vihar",No,
+Naraina Vihar,Pink Line,PK10,"Mayapuri,Delhi Cantt",No,
+Delhi Cantt,Pink Line,PK11,"Naraina Vihar,Durgabai Deshmukh South Campus",No,
+Durgabai Deshmukh South Campus,Pink Line,PK12,"Delhi Cantt,Sir M. Vishveshwaraya Moti Bagh",No,
+Sir M. Vishveshwaraya Moti Bagh,Pink Line,PK13,"Durgabai Deshmukh South Campus,Bhikaji Cama Place",No,
+Bhikaji Cama Place,Pink Line,PK14,"Sir M. Vishveshwaraya Moti Bagh,Sarojini Nagar",No,
+Sarojini Nagar,Pink Line,PK15,"Bhikaji Cama Place,Dilli Haat INA",No,
+Dilli Haat INA,"Pink Line,Yellow Line",PK16,"Sarojini Nagar,South Extension",Yes,Yellow Line
+South Extension,Pink Line,PK17,"Dilli Haat INA,Lajpat Nagar",No,
+Lajpat Nagar,"Pink Line,Violet Line",PK18,"South Extension,Vinobapuri",Yes,Violet Line
+Vinobapuri,Pink Line,PK19,"Lajpat Nagar,Ashram",No,
+Ashram,Pink Line,PK20,"Vinobapuri,Sarai Kale Khan - Nizamuddin",No,
+Sarai Kale Khan - Nizamuddin,Pink Line,PK21,"Ashram,Mayur Vihar Phase-1",No,
+Mayur Vihar Phase-1,"Pink Line,Blue Line",PK22,"Sarai Kale Khan - Nizamuddin,Mayur Vihar Pocket I",Yes,Blue Line
+Mayur Vihar Pocket I,Pink Line,PK23,"Mayur Vihar Phase-1,Trilokpuri - Sanjay Lake",No,
+Trilokpuri - Sanjay Lake,Pink Line,PK24,"Mayur Vihar Pocket I,East Vinod Nagar - Mayur Vihar-II",No,
+East Vinod Nagar - Mayur Vihar-II,Pink Line,PK25,"Trilokpuri - Sanjay Lake,Mandawali - West Vinod Nagar",No,
+Mandawali - West Vinod Nagar,Pink Line,PK26,"East Vinod Nagar - Mayur Vihar-II,IP Extension",No,
+IP Extension,Pink Line,PK27,"Mandawali - West Vinod Nagar,Anand Vihar ISBT",No,
+Anand Vihar ISBT,"Pink Line,Blue Line Branch",PK28,"IP Extension,Karkarduma",Yes,Blue Line Branch
+Karkarduma,"Pink Line,Blue Line Branch",PK29,"Anand Vihar ISBT,Karkarduma Court",Yes,Blue Line Branch
+Karkarduma Court,Pink Line,PK30,"Karkarduma,Krishna Nagar",No,
+Krishna Nagar,Pink Line,PK31,"Karkarduma Court,East Azad Nagar",No,
+East Azad Nagar,Pink Line,PK32,"Krishna Nagar,Welcome",No,
+Welcome,"Pink Line,Red Line",PK33,"East Azad Nagar,Jaffrabad",Yes,Red Line
+Jaffrabad,Pink Line,PK34,"Welcome,Maujpur - Babarpur",No,
+Maujpur - Babarpur,Pink Line,PK35,"Jaffrabad,Gokulpuri",No,
+Gokulpuri,Pink Line,PK36,"Maujpur - Babarpur,Johri Enclave",No,
+Johri Enclave,Pink Line,PK37,"Gokulpuri,Shiv Vihar",No,
+Shiv Vihar,Pink Line,PK38,Johri Enclave,No,
+Janakpuri West,"Magenta Line,Blue Line",MG01,Dabri Mor - Janakpuri South,Yes,Blue Line
+Dabri Mor - Janakpuri South,Magenta Line,MG02,"Janakpuri West,Dashrath Puri",No,
+Dashrath Puri,Magenta Line,MG03,"Dabri Mor - Janakpuri South,Palam",No,
+Palam,Magenta Line,MG04,"Dashrath Puri,Sadar Bazaar Cantonment",No,
+Sadar Bazaar Cantonment,Magenta Line,MG05,"Palam,Terminal 1 IGI Airport",No,
+Terminal 1 IGI Airport,Magenta Line,MG06,"Sadar Bazaar Cantonment,Shankar Vihar",No,
+Shankar Vihar,Magenta Line,MG07,"Terminal 1 IGI Airport,Vasant Vihar",No,
+Vasant Vihar,Magenta Line,MG08,"Shankar Vihar,Munirka",No,
+Munirka,Magenta Line,MG09,"Vasant Vihar,RK Puram",No,
+RK Puram,Magenta Line,MG10,"Munirka,IIT Delhi",No,
+IIT Delhi,Magenta Line,MG11,"RK Puram,Hauz Khas",No,
+Hauz Khas,"Magenta Line,Yellow Line",MG12,"IIT Delhi,Panchsheel Park",Yes,Yellow Line
+Panchsheel Park,Magenta Line,MG13,"Hauz Khas,Chirag Delhi",No,
+Chirag Delhi,Magenta Line,MG14,"Panchsheel Park,Greater Kailash",No,
+Greater Kailash,Magenta Line,MG15,"Chirag Delhi,Nehru Enclave",No,
+Nehru Enclave,Magenta Line,MG16,"Greater Kailash,Kalkaji Mandir",No,
+Kalkaji Mandir,"Magenta Line,Violet Line",MG17,"Nehru Enclave,Okhla NSIC",Yes,Violet Line
+Okhla NSIC,Magenta Line,MG18,"Kalkaji Mandir,Sukhdev Vihar",No,
+Sukhdev Vihar,Magenta Line,MG19,"Okhla NSIC,Jamia Millia Islamia",No,
+Jamia Millia Islamia,Magenta Line,MG20,"Sukhdev Vihar,Okhla Vihar",No,
+Okhla Vihar,Magenta Line,MG21,"Jamia Millia Islamia,Jasola Vihar Shaheen Bagh",No,
+Jasola Vihar Shaheen Bagh,Magenta Line,MG22,"Okhla Vihar,Kalindi Kunj",No,
+Kalindi Kunj,Magenta Line,MG23,"Jasola Vihar Shaheen Bagh,Okhla Bird Sanctuary",No,
+Okhla Bird Sanctuary,Magenta Line,MG24,"Kalindi Kunj,Botanical Garden",No,
+Botanical Garden,"Magenta Line,Blue Line",MG25,Okhla Bird Sanctuary,Yes,Blue Line
+Dwarka,"Grey Line,Blue Line",GY01,Nangli,Yes,Blue Line
+Nangli,Grey Line,GY02,"Dwarka,Najafgarh",No,
+Najafgarh,Grey Line,GY03,"Nangli,Dhansa Bus Stand",No,
+Dhansa Bus Stand,Grey Line,GY04,Najafgarh,No,
+New Delhi,"Airport Express,Yellow Line",AE01,Shivaji Stadium,Yes,Yellow Line
+Shivaji Stadium,Airport Express,AE02,"New Delhi,Dhaula Kuan",No,
+Dhaula Kuan,Airport Express,AE03,"Shivaji Stadium,Delhi Aerocity",No,
+Delhi Aerocity,Airport Express,AE04,"Dhaula Kuan,IGI Airport",No,
+IGI Airport,Airport Express,AE05,"Delhi Aerocity,Dwarka Sector 21",No,
+Dwarka Sector 21,"Airport Express,Blue Line",AE06,"IGI Airport,Yashobhoomi Dwarka Sector 25",Yes,Blue Line
+Yashobhoomi Dwarka Sector 25,Airport Express,AE07,Dwarka Sector 21,No,
